@@ -1,29 +1,18 @@
 ﻿@page "/quotes";
+@using BlazorApp1.Components.Pages.Quotes.components
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject QuoteService QuoteService;
 
 
-@if (quotes is not null && quotes?.quotes is not null)
-{
-    <div class="mx-auto container my-2">
-        <h3>Quotes</h3>
-        <ul class="list-group">
-            @foreach (var quote in quotes.quotes)
-            {
-                <li class="list-group-item">@quote.quote</li>
-            }
-        </ul>
 
-    </div>
-}
-else
-{
-    <p class="text-danger">Loading</p>
-}
+<div class="mx-auto container">
+    <QuotesComponent quotes="quotes"/>
+</div>
 
 
 @code {
+
     public QuoteModel? quotes { get; set; }
 
     protected override async Task OnInitializedAsync()
