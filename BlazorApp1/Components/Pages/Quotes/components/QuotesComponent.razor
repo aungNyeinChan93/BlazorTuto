@@ -8,11 +8,13 @@
             <ul class="list-group">
                 @foreach (var quote in quotes.quotes)
                 {
-                    <li class="list-group-item">@quote.quote</li>
+                    if (quote is not null)
+                    {
+                        <QuoteComponent @rendermode="InteractiveServer" quote="quote"/>
+                    }
                 }
             </ul>
         </div>
-
     }
     else
     {
