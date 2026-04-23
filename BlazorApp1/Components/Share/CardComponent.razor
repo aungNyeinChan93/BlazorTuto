@@ -1,0 +1,16 @@
+﻿@rendermode InteractiveServer
+
+<div class="card" style="background-color:@(Color)">
+    <div class="card-body" >
+        @Name
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Name { get; set; } = default!;
+
+    [Parameter]
+    public string? Color { get; set; } = string.Empty;
+
+}
