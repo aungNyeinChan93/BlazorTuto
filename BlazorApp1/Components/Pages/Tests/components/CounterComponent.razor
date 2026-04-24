@@ -1,0 +1,61 @@
+﻿@rendermode InteractiveServer
+
+<h3>CounterComponent</h3>
+
+<div class="rounded p-4 my-2 @(state ? "bg-primary":"bg-secondary") " @onmouseover="HandleMouseOver">
+    Count : @(currentCount)
+    <button class="btn btn-info" @onclick="Increment">Increase</button>
+
+    <input type="number" class="form-control mt-1" @onchange="HandleInput">
+       
+        <input type="number" class="form-control mt-1" @bind-value="currentCount">
+
+            <input
+                @bind-value:after="SearchKey"
+                type="text" class="form-control mt-1" @bind-value="CounterName" @bind-value:event="oninput">
+            @(CounterName)
+            <br />
+            @searchKey
+
+</div>
+
+@code {
+    private int currentCount = 0;
+
+    public bool state { get; set; } = false;
+
+    public string? CounterName { get; set; } 
+
+    [Parameter]
+    public int InitialCount { get; set; } = 0;
+
+    public string? searchKey { get; set; } = null!;
+
+    [Parameter]
+    public EventCallback<int> FunOne { get; set; }
+
+    protected override void OnInitialized()
+    {
+        currentCount = InitialCount;
+    }
+
+    private async Task Increment()
+    {
+        currentCount++;
+        await FunOne.InvokeAsync(currentCount);
+    }
+    private void HandleInput(ChangeEventArgs args)
+    {
+        currentCount = Convert.ToInt32(args.Value);
+    }
+    private void HandleMouseOver(MouseEventArgs args)
+    {
+        this.state = !state;
+    }
+
+    private async Task SearchKey()
+    {
+        await Task.Delay(2000);
+        searchKey = $"Search key is {CounterName}";
+    }
+}

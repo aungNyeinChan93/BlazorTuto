@@ -1,13 +1,13 @@
 ﻿@page "/quotes";
 @using BlazorApp1.Components.Pages.Quotes.components
 @attribute [StreamRendering]
-@rendermode InteractiveServer
+@* @rendermode InteractiveServer *@
 @inject QuoteService QuoteService;
 
 
 
 <div class="mx-auto container">
-    <QuotesComponent quotes="quotes" />
+    <QuotesComponent @rendermode="InteractiveServer" quotes="quotes" />
 </div>
 
 

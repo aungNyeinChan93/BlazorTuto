@@ -1,0 +1,21 @@
+﻿@page "/tests/two"
+
+<h3>TestTwo</h3>
+
+<CounterComponent />
+<br />
+<br />
+<CounterComponent InitialCount="10" FunOne="@TestOne" />
+
+<br />
+<p> Message => @message</p>
+
+@code {
+    public string? message { get; set; } = "";
+
+    private async Task TestOne(int count)
+    {
+        message = $"Number of count {count}";
+        StateHasChanged(); // ensures UI refresh
+    }
+}
